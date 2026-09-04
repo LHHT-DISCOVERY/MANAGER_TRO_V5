@@ -1,0 +1,4024 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quản lý trọ 2026</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    width:100%;
+    min-height:100%;
+    background:#f4f6fa;
+}
+
+body{
+    margin:0;
+    background:#f4f6fa;
+    color:#172033;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    width:100%;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    touch-action:manipulation;
+}
+
+.app{
+    display:flex;
+    min-height:100vh;
+    width:100%;
+}
+
+/* =====================================================
+   SIDEBAR DESKTOP
+===================================================== */
+
+.side{
+    width:230px;
+    flex:0 0 230px;
+    background:#111827;
+    color:white;
+    padding:20px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    z-index:20;
+}
+
+.brand{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:25px;
+}
+
+.brand small{
+    display:block;
+    color:#9ca3af;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.nav button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#d1d5db;
+    text-align:left;
+    padding:12px;
+    border-radius:8px;
+    margin:3px 0;
+    cursor:pointer;
+}
+
+.nav button.active,
+.nav button:hover{
+    background:#1f2937;
+    color:white;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    flex:1;
+    padding:24px;
+    min-width:0;
+    width:calc(100% - 230px);
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:15px;
+}
+
+.top h1{
+    margin:0;
+    font-size:28px;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    min-height:42px;
+    padding:9px 13px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:white;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.btn:hover{
+    background:#f3f4f6;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+    border-color:#2563eb;
+}
+
+.primary:hover{
+    background:#1d4ed8;
+}
+
+.danger{
+    background:#dc2626;
+    color:white;
+    border-color:#dc2626;
+}
+
+.danger:hover{
+    background:#b91c1c;
+}
+
+/* =====================================================
+   VIEW
+===================================================== */
+
+.view{
+    display:none;
+}
+
+.view.active{
+    display:block;
+}
+
+/* =====================================================
+   DASHBOARD CARDS
+===================================================== */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.card,
+.panel{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    box-shadow:0 5px 18px #0000000b;
+}
+
+.stat{
+    padding:18px;
+}
+
+.label{
+    font-size:13px;
+    color:#6b7280;
+}
+
+.value{
+    font-size:23px;
+    font-weight:800;
+    margin-top:7px;
+    line-height:1.3;
+}
+
+.panel{
+    margin-top:16px;
+    overflow:hidden;
+}
+
+.panelhead{
+    padding:15px 17px;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.panelhead h2{
+    margin:0;
+    font-size:17px;
+}
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+.filters{
+    display:flex;
+    gap:8px;
+    padding:13px 17px;
+    border-bottom:1px solid #e5e7eb;
+    flex-wrap:wrap;
+}
+
+input,
+select{
+    min-height:42px;
+    padding:9px 11px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:white;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px #2563eb20;
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table{
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:950px;
+}
+
+th,
+td{
+    padding:10px 12px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+    font-size:13px;
+    white-space:nowrap;
+}
+
+th{
+    background:#f8fafc;
+    position:sticky;
+    top:0;
+    z-index:2;
+}
+
+.money{
+    font-weight:bold;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.paid{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.unpaid{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.not-entered{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+/* =====================================================
+   ROOMS
+===================================================== */
+
+.roomgrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:14px;
+    padding:16px;
+}
+
+.room{
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:15px;
+    background:white;
+}
+
+.muted{
+    color:#6b7280;
+    font-size:13px;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#0009;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.box{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    width:min(580px,100%);
+    max-height:90vh;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.modalactions{
+    text-align:right;
+    margin-top:18px;
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+}
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#111827;
+    color:white;
+    padding:11px 15px;
+    border-radius:8px;
+    display:none;
+    z-index:200;
+    max-width:calc(100vw - 40px);
+}
+
+/* =====================================================
+   INVOICE
+===================================================== */
+
+.invoice{
+    display:none;
+    background:white;
+    color:#111;
+    font-family:Arial,sans-serif;
+}
+
+.invoice h2{
+    text-align:center;
+    margin:0 0 18px;
+}
+
+.invoice-meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin:15px 0;
+}
+
+.invoice table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:0;
+}
+
+.invoice th,
+.invoice td{
+    border:1px solid #333;
+    padding:7px;
+    white-space:normal;
+}
+
+.invoice .total{
+    text-align:right;
+    font-size:17px;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print{
+
+    @page{
+        size:A4 portrait;
+        margin:10mm;
+    }
+
+    html,
+    body{
+        margin:0!important;
+        padding:0!important;
+        background:white!important;
+        height:auto!important;
+        min-height:0!important;
+    }
+
+    body{
+        overflow:visible!important;
+    }
+
+    .app{
+        display:none!important;
+    }
+
+    #invoicePrint{
+        display:block!important;
+        position:static!important;
+        width:100%!important;
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow:visible!important;
+        margin:0!important;
+        padding:0!important;
+    }
+
+    .invoice{
+        display:block!important;
+        page-break-after:avoid!important;
+        break-after:avoid!important;
+    }
+
+    .invoice table{
+        page-break-inside:avoid!important;
+        break-inside:avoid!important;
+    }
+
+    .invoice h2{
+        page-break-after:avoid!important;
+        break-after:avoid!important;
+    }
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:1000px){
+
+    .side{
+        width:190px;
+        flex-basis:190px;
+        padding:15px;
+    }
+
+    .main{
+        width:calc(100% - 190px);
+        padding:18px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+/* =====================================================
+   IPHONE / MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    html,
+    body{
+        width:100%;
+        max-width:100%;
+        overflow-x:hidden;
+    }
+
+    .app{
+        display:block;
+        width:100%;
+        min-height:100vh;
+    }
+
+    /* ---------------------------------------------
+       SIDEBAR → THANH MENU DƯỚI
+    --------------------------------------------- */
+
+    .side{
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        top:auto;
+
+        width:100%;
+        height:auto;
+        min-height:68px;
+
+        padding:6px 8px;
+
+        background:#111827;
+
+        z-index:1000;
+
+        box-shadow:0 -4px 18px #0003;
+    }
+
+    .brand{
+        display:none;
+    }
+
+    .nav{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:4px;
+        width:100%;
+    }
+
+    .nav button{
+        margin:0;
+        padding:8px 3px;
+        min-height:56px;
+        border-radius:8px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+
+        font-size:11px;
+        line-height:1.2;
+    }
+
+    /*
+       Bỏ cách xử lý font-size:0 của CSS cũ.
+       Giữ emoji + text để dễ dùng trên iPhone.
+    */
+
+    /* ---------------------------------------------
+       MAIN
+    --------------------------------------------- */
+
+    .main{
+        width:100%;
+        max-width:100%;
+        padding:14px 12px 90px;
+    }
+
+    .top{
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        gap:12px;
+        margin-bottom:14px;
+    }
+
+    .top h1{
+        font-size:24px;
+        line-height:1.2;
+    }
+
+    .actions{
+        width:100%;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .actions .btn{
+        width:100%;
+    }
+
+    /* ---------------------------------------------
+       STAT CARDS
+    --------------------------------------------- */
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .stat{
+        padding:13px;
+        min-height:90px;
+    }
+
+    .label{
+        font-size:12px;
+    }
+
+    .value{
+        font-size:17px;
+        margin-top:5px;
+        word-break:break-word;
+    }
+
+    /* ---------------------------------------------
+       PANEL
+    --------------------------------------------- */
+
+    .panel{
+        margin-top:12px;
+        border-radius:10px;
+    }
+
+    .panelhead{
+        padding:13px;
+        align-items:center;
+    }
+
+    .panelhead h2{
+        font-size:16px;
+    }
+
+    .panelhead .btn{
+        min-height:38px;
+        padding:7px 10px;
+    }
+
+    /* ---------------------------------------------
+       FILTER
+    --------------------------------------------- */
+
+    .filters{
+        padding:10px;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .filters input{
+        grid-column:1/-1;
+        width:100%;
+    }
+
+    .filters select{
+        width:100%;
+        min-width:0;
+    }
+
+    /* ---------------------------------------------
+       TABLE
+    --------------------------------------------- */
+
+    .table{
+        width:100%;
+        max-width:100%;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:thin;
+    }
+
+    table{
+        min-width:950px;
+    }
+
+    th,
+    td{
+        padding:9px 10px;
+        font-size:12px;
+    }
+
+    /* ---------------------------------------------
+       BILLING TABLE - FREEZE COLUMN "PHÒNG"
+       Các cột phía sau vẫn kéo ngang được trên iPhone
+    --------------------------------------------- */
+    #billing .table{
+        position:relative;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        touch-action:pan-x;
+        scrollbar-width:thin;
+    }
+
+    #billing .table table{
+        min-width:950px;
+        width:max-content;
+    }
+
+    /* Cố định cột Phòng (cột số 2) */
+    #billing .table th:nth-child(2),
+    #billing .table td:nth-child(2){
+        position:sticky;
+        left:0;
+        z-index:4;
+        min-width:72px;
+        width:72px;
+        background:#fff;
+        box-shadow:2px 0 4px rgba(0,0,0,.10);
+    }
+
+    /* Header của cột Phòng luôn nằm trên các ô dữ liệu */
+    #billing .table th:nth-child(2){
+        background:#f8fafc;
+        z-index:6;
+    }
+
+    /* Khi kéo ngang, cột Phòng không bị nội dung cột khác đè */
+    #billing .table td:nth-child(2){
+        background:#fff;
+    }
+
+    /* ---------------------------------------------
+       ROOM
+    --------------------------------------------- */
+
+    .roomgrid{
+        grid-template-columns:1fr;
+        padding:10px;
+        gap:9px;
+    }
+
+    .room{
+        padding:13px;
+    }
+
+    .room .btn{
+        min-height:40px;
+    }
+
+    /* ---------------------------------------------
+       MODAL
+    --------------------------------------------- */
+
+    .modal{
+        padding:10px;
+        align-items:flex-start;
+        z-index:2000;
+        box-sizing:border-box;
+    }
+
+    .box{
+        width:100%;
+        max-width:100%;
+        max-height:calc(100dvh - 20px);
+        min-height:0;
+        border-radius:16px;
+        padding:17px 14px calc(24px + env(safe-area-inset-bottom));
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+        box-sizing:border-box;
+    }
+
+    .box h3{
+        margin-top:2px;
+        margin-bottom:15px;
+        font-size:19px;
+    }
+
+    .form{
+        grid-template-columns:1fr;
+        gap:11px;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .field input,
+    .field select{
+        width:100%;
+        min-height:44px;
+        font-size:16px;
+    }
+
+    .modalactions{
+        position:sticky;
+        bottom:0;
+        margin:16px -14px -24px;
+        padding:12px 14px 14px;
+        background:white;
+        border-top:1px solid #e5e7eb;
+        z-index:5;
+    }
+
+    .modalactions .btn{
+        flex:1;
+        min-height:44px;
+    }
+
+    /* ---------------------------------------------
+       TOAST
+    --------------------------------------------- */
+
+    .toast{
+        left:12px;
+        right:12px;
+        bottom:calc(82px + env(safe-area-inset-bottom));
+        max-width:none;
+        text-align:center;
+        border-radius:10px;
+        z-index:1100;
+        width:auto;
+        box-sizing:border-box;
+    }
+
+}
+
+/* =====================================================
+   IPHONE 14 PRO MAX
+   430px WIDTH
+===================================================== */
+
+@media(max-width:480px){
+
+    /* Billing: cột Phòng cố định, phần còn lại kéo ngang */
+    #billing .table{
+        margin-right:-1px;
+        padding-bottom:3px;
+    }
+
+    #billing .table th:nth-child(2),
+    #billing .table td:nth-child(2){
+        min-width:76px;
+        width:76px;
+    }
+
+    .main{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .top h1{
+        font-size:23px;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+        gap:7px;
+    }
+
+    .stat{
+        padding:11px;
+    }
+
+    .value{
+        font-size:16px;
+    }
+
+    .panelhead{
+        padding:11px;
+    }
+
+    .panelhead h2{
+        font-size:15px;
+    }
+
+    .panelhead .btn{
+        font-size:12px;
+        padding:7px 8px;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .filters input,
+    .filters select{
+        grid-column:auto;
+    }
+
+    .nav button{
+        min-height:58px;
+        font-size:10px;
+    }
+
+    .nav button:first-line{
+        font-size:16px;
+    }
+
+}
+
+/* =====================================================
+   SAFE AREA IPHONE
+===================================================== */
+
+@supports(padding:max(0px)){
+
+    .side{
+        padding-bottom:max(
+            6px,
+            env(safe-area-inset-bottom)
+        );
+    }
+
+    @media(max-width:800px){
+
+        .main{
+            padding-bottom:
+                max(
+                    90px,
+                    calc(90px + env(safe-area-inset-bottom))
+                );
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE TABLE - FIX CỘT PHÒNG CHO TAB TỔNG QUAN
+===================================================== */
+@media(max-width:800px){
+    #dashboard .table{
+        width:100%;
+        max-width:100%;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        touch-action:pan-x;
+        scrollbar-width:thin;
+    }
+
+    #dashboard .table table{
+        width:max-content;
+        min-width:700px;
+        table-layout:auto;
+    }
+
+    /* Cố định cột PHÒNG bên trái */
+    #dashboard .table th:first-child,
+    #dashboard .table td:first-child{
+        position:sticky;
+        left:0;
+        min-width:72px;
+        width:72px;
+        background:#fff;
+        box-shadow:2px 0 5px rgba(0,0,0,.10);
+    }
+
+    #dashboard .table th:first-child{
+        background:#f8fafc;
+        z-index:6;
+    }
+
+    #dashboard .table td:first-child{
+        z-index:4;
+        font-weight:600;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="side">
+
+<div class="brand">
+🏠 Quản lý trọ
+<small>2026 · LocalStorage</small>
+</div>
+
+<nav class="nav">
+
+<button class="active" data-view="dashboard">
+📊 Tổng quan
+</button>
+
+<button data-view="billing">
+🧾 Hóa đơn
+</button>
+
+<button data-view="rooms">
+🚪 Phòng
+</button>
+
+<button data-view="settings">
+⚙️ Cài đặt
+</button>
+
+</nav>
+
+</aside>
+
+
+<main class="main">
+
+<div class="top">
+
+<h1 id="title">
+Tổng quan
+</h1>
+
+<div class="actions">
+
+<button class="btn" onclick="exportData()">
+Xuất backup
+</button>
+
+<button class="btn" onclick="document.getElementById('imp').click()">
+Nhập backup
+</button>
+
+<input
+id="imp"
+type="file"
+accept=".json"
+hidden
+onchange="importData(event)"
+>
+
+</div>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="view active">
+
+<div id="stats" class="grid"></div>
+
+<div class="panel">
+
+<div class="panelhead">
+
+<h2>
+Tổng hợp
+</h2>
+
+<select id="dm" onchange="renderDash()"></select>
+
+</div>
+
+<div class="table">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Phòng</th>
+<th>Người</th>
+<th>Điện</th>
+<th>Nước</th>
+<th>Phòng</th>
+<th>Tổng</th>
+<th>Trạng thái</th>
+</tr>
+
+</thead>
+
+<tbody id="dt"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BILLING ================= -->
+
+<section id="billing" class="view">
+
+<div class="panel">
+
+<div class="panelhead">
+
+<h2>
+Hóa đơn từng phòng
+</h2>
+
+<button class="btn primary" onclick="openBill()">
++ Nhập hóa đơn
+</button>
+
+</div>
+
+<div class="filters">
+
+<select id="bm" onchange="renderBill()"></select>
+
+<select id="br" onchange="renderBill()">
+<option value="">Tất cả phòng</option>
+</select>
+
+<input
+id="bq"
+placeholder="Tìm phòng..."
+oninput="renderBill()"
+>
+
+</div>
+
+<div class="table">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Tháng</th>
+<th>Phòng</th>
+<th>Người</th>
+<th>Điện đầu kỳ</th>
+<th>Điện cuối kỳ</th>
+<th>kWh</th>
+<th>Tiền điện</th>
+<th>Tiền nước</th>
+<th>Tiền phòng</th>
+<th>Tổng</th>
+<th>Trạng thái</th>
+<th></th>
+</tr>
+
+</thead>
+
+<tbody id="bt"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ROOMS ================= -->
+
+<section id="rooms" class="view">
+
+<div class="panel">
+
+<div class="panelhead">
+
+<h2>
+Phòng
+</h2>
+
+<button class="btn primary" onclick="openRoom()">
++ Thêm phòng
+</button>
+
+</div>
+
+<div id="rg" class="roomgrid"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section id="settings" class="view">
+
+<div class="panel">
+
+<div class="panelhead">
+
+<h2>
+Cài đặt
+</h2>
+
+</div>
+
+<div style="padding:18px">
+
+<div class="field" style="max-width:330px">
+
+<label>
+Đơn giá điện (VND/kWh)
+</label>
+
+<input
+id="ep"
+type="number"
+>
+
+</div>
+
+<br>
+
+<div class="field" style="max-width:330px">
+
+<label>
+Đơn giá nước (VND/người/tháng)
+</label>
+
+<input
+id="wp"
+type="number"
+>
+
+</div>
+
+<br>
+
+<button
+class="btn primary"
+onclick="saveSettings()"
+>
+Lưu
+</button>
+
+<button
+class="btn"
+onclick="checkStorage()"
+>
+Kiểm tra dữ liệu lưu
+</button>
+
+<button
+class="btn danger"
+onclick="clearStorage()"
+>
+Xóa LocalStorage
+</button>
+
+<button
+class="btn danger"
+onclick="resetData()"
+>
+Khôi phục dữ liệu Excel
+</button>
+
+<p class="muted">
+Số người tháng sau sẽ tự lấy từ tháng trước.
+Điện đầu kỳ tháng sau cũng tự lấy từ điện cuối kỳ tháng trước.
+Bạn vẫn có thể sửa lại trong từng tháng.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div id="modal" class="modal">
+
+<div id="box" class="box"></div>
+
+</div>
+
+
+<!-- ================= PRINT ================= -->
+
+<div id="invoicePrint" class="invoice"></div>
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   DỮ LIỆU GỐC
+===================================================== */
+
+const SEED={
+
+rooms:[
+{name:"Phòng 1",defaultRent:2300000},
+{name:"Phòng 2",defaultRent:2000000},
+{name:"Phòng 3",defaultRent:2500000},
+{name:"Phòng 4",defaultRent:2500000},
+{name:"Phòng 5",defaultRent:2400000},
+{name:"Phòng 6",defaultRent:2900000},
+{name:"Phòng 7",defaultRent:2400000},
+{name:"Phòng 8",defaultRent:2500000}
+],
+
+records:[],
+
+settings:{
+electricPrice:4000,
+waterPricePerPerson:50000
+}
+
+};
+
+
+/* =====================================================
+   TẠO DỮ LIỆU 12 THÁNG
+===================================================== */
+
+function createYearRecords(){
+
+    const records=[];
+
+    const original={
+
+        "Phòng 1":[
+            [0,0],[0,0],[0,0],[0,0],
+            [3741,3842],
+            [3842,3953],
+            [3953,4086],
+            [4086,4203],
+            [4203,4346],
+            [4346,0],[0,0],[0,0]
+        ],
+
+        "Phòng 2":[
+            [0,0],[0,0],[0,0],[0,0],
+            [3453,3487],
+            [3487,3600],
+            [3600,3751],
+            [3751,3848],
+            [3848,3935],
+            [3935,0],[0,0],[0,0]
+        ],
+
+        "Phòng 3":[
+            [0,0],[0,0],[0,0],[0,0],
+            [6288,6455],
+            [6455,6833],
+            [6833,7455],
+            [7455,7911],
+            [7911,8210],
+            [8210,0],[0,0],[0,0]
+        ],
+
+        "Phòng 4":[
+            [0,0],[0,0],[0,0],[0,0],
+            [5343,5446],
+            [5446,5600],
+            [5600,5776],
+            [5776,5777],
+            [5777,5870],
+            [5870,0],[0,0],[0,0]
+        ],
+
+        "Phòng 5":[
+            [0,0],[0,0],[0,0],[0,0],
+            [8128,8183],
+            [8183,8275],
+            [8275,8463],
+            [8463,8695],
+            [8695,8908],
+            [8908,0],[0,0],[0,0]
+        ],
+
+        "Phòng 6":[
+            [0,0],[0,0],[0,0],[0,0],
+            [5837,5889],
+            [5889,5998],
+            [5998,6070],
+            [6070,6111],
+            [6111,6259],
+            [6259,0],[0,0],[0,0]
+        ],
+
+        "Phòng 7":[
+            [0,0],[0,0],[0,0],[0,0],
+            [2816,2920],
+            [2920,3012],
+            [3012,3211],
+            [3211,3422],
+            [3422,3659],
+            [3659,0],[0,0],[0,0]
+        ],
+
+        "Phòng 8":[
+            [0,0],[0,0],[0,0],[0,0],
+            [3796,3856],
+            [3856,3965],
+            [3965,4103],
+            [4103,4210],
+            [4210,4410],
+            [4410,0],[0,0],[0,0]
+        ]
+
+    };
+
+
+    SEED.rooms.forEach(room=>{
+
+        let people=1;
+
+        if(room.name==="Phòng 1") people=3;
+        if(room.name==="Phòng 2") people=1;
+        if(room.name==="Phòng 3") people=1;
+        if(room.name==="Phòng 4") people=2;
+        if(room.name==="Phòng 5") people=1;
+        if(room.name==="Phòng 6") people=3;
+        if(room.name==="Phòng 7") people=1;
+        if(room.name==="Phòng 8") people=2;
+
+
+        for(let m=1;m<=12;m++){
+
+            let rent=room.defaultRent;
+
+            if(room.name==="Phòng 3" && m>=6)
+                rent=2600000;
+
+            if(room.name==="Phòng 5" && m>=6)
+                rent=2500000;
+
+            if(room.name==="Phòng 6" && m===7)
+                rent=2500000;
+
+            if(room.name==="Phòng 6" && m>=8)
+                rent=3000000;
+
+            if(room.name==="Phòng 7" && m===6)
+                rent=0;
+
+            if(room.name==="Phòng 7" && m>=7)
+                rent=2500000;
+
+            if(room.name==="Phòng 3" && m>=6)
+                people=2;
+
+            if(room.name==="Phòng 4" && m>=9)
+                people=1;
+
+            if(room.name==="Phòng 6" && m>=9)
+                people=4;
+
+            if(room.name==="Phòng 7" && m>=7)
+                people=2;
+
+
+            const pair=
+                original[room.name]?.[m-1]||[0,0];
+
+
+            records.push({
+
+                month:m,
+                room:room.name,
+
+                people:people,
+
+                before:pair[0],
+                after:pair[1],
+
+                electric:0,
+                water:0,
+
+                rent:rent,
+
+                paid:false,
+
+                entered:
+                    pair[0]>0 ||
+                    pair[1]>0
+
+            });
+
+        }
+
+    });
+
+    return records;
+}
+
+
+SEED.records=createYearRecords();
+
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+
+const KEY = "quanlytro2026_v3";
+
+let db = load();
+
+
+function load(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(KEY);
+
+        /*
+           Có dữ liệu đã lưu
+        */
+
+        if(saved){
+
+            const data =
+                JSON.parse(saved);
+
+            if(
+                data &&
+                Array.isArray(data.rooms) &&
+                Array.isArray(data.records)
+            ){
+
+                console.log(
+                    "✅ Đã load dữ liệu:",
+                    data
+                );
+
+                /*
+                   Chỉ chuẩn hóa cấu trúc.
+                   KHÔNG tự thay đổi record.
+                */
+
+                return normalizeDB(data);
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "❌ Lỗi đọc LocalStorage:",
+            error
+        );
+
+    }
+
+
+    /*
+       Chưa có dữ liệu:
+       tạo database mới từ SEED
+    */
+
+    const initial =
+        structuredClone(SEED);
+
+    localStorage.setItem(
+        KEY,
+        JSON.stringify(initial)
+    );
+
+    return initial;
+
+}
+
+
+function save(){
+
+    try{
+
+        /*
+           Thời gian lưu
+        */
+
+        db.lastSaved =
+            new Date().toISOString();
+
+
+        const json =
+            JSON.stringify(db);
+
+
+        localStorage.setItem(
+            KEY,
+            json
+        );
+
+
+        /*
+           Kiểm tra lại ngay sau khi lưu
+        */
+
+        const check =
+            localStorage.getItem(KEY);
+
+
+        if(!check){
+
+            throw new Error(
+                "Không ghi được LocalStorage"
+            );
+
+        }
+
+
+        console.log(
+            "✅ ĐÃ LƯU DATABASE",
+            db
+        );
+
+
+        return true;
+
+
+    }catch(error){
+
+        console.error(
+            "❌ SAVE ERROR:",
+            error
+        );
+
+
+        alert(
+            "Không thể lưu dữ liệu!\n\n" +
+            error.message
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CHUẨN HÓA
+===================================================== */
+
+function normalizeDB(data){
+
+    if(!data.settings)
+        data.settings={};
+
+    if(
+        data.settings.electricPrice===undefined
+    )
+        data.settings.electricPrice=4000;
+
+    if(
+        data.settings.waterPricePerPerson===undefined
+    )
+        data.settings.waterPricePerPerson=50000;
+
+
+    data.rooms.forEach(room=>{
+
+        if(room.defaultRent===undefined)
+            room.defaultRent=0;
+
+    });
+
+
+    /*
+       Tạo đủ 12 tháng cho mọi phòng.
+    */
+
+    data.rooms.forEach(room=>{
+
+        for(let m=1;m<=12;m++){
+
+            let exists=
+                data.records.find(
+                    x=>
+                    x.room===room.name &&
+                    +x.month===m
+                );
+
+
+            if(!exists){
+
+                data.records.push({
+
+                    month:m,
+                    room:room.name,
+
+                    people:0,
+
+                    before:0,
+                    after:0,
+
+                    electric:0,
+                    water:0,
+
+                    rent:room.defaultRent,
+
+                    paid:false,
+
+                    entered:false
+
+                });
+
+            }
+
+        }
+
+    });
+
+
+    /*
+       Đánh dấu dữ liệu cũ đã nhập.
+    */
+
+    data.records.forEach(r=>{
+
+        if(r.entered===undefined){
+
+            r.entered=
+                Number(r.people)>0 ||
+                Number(r.before)>0 ||
+                Number(r.after)>0;
+
+        }
+
+    });
+
+
+    // /*
+    //    Đồng bộ dữ liệu kế thừa.
+    // */
+
+    // data.rooms.forEach(room=>{
+
+    //     syncAllRoom(room.name);
+
+    // });
+
+
+    return data;
+}
+
+
+function save(){
+
+    localStorage.setItem(
+        KEY,
+        JSON.stringify(db)
+    );
+
+}
+
+
+/* =====================================================
+   HELPER
+===================================================== */
+
+const money=n=>
+    new Intl.NumberFormat("vi-VN")
+    .format(Math.round(Number(n)||0))
+    +" VND";
+
+
+const esc=s=>
+    String(s??"")
+    .replace(
+        /[&<>"']/g,
+        x=>({
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[x])
+    );
+
+
+function rec(room,month){
+
+    return db.records.find(
+        x=>
+        x.room===room &&
+        +x.month===+month
+    );
+
+}
+
+
+function isEntered(r){
+
+    if(!r)
+        return false;
+
+    if(r.entered===true)
+        return true;
+
+    return(
+        Number(r.people)>0 ||
+        Number(r.before)>0 ||
+        Number(r.after)>0
+    );
+
+}
+
+
+/* =====================================================
+   LẤY SỐ ĐIỆN CUỐI KỲ THÁNG TRƯỚC
+===================================================== */
+
+function getPreviousAfter(room,month){
+
+    month=Number(month);
+
+    if(month<=1)
+        return 0;
+
+    const previous=
+        rec(room,month-1);
+
+    if(
+        previous &&
+        isEntered(previous)
+    ){
+
+        return Number(previous.after)||0;
+
+    }
+
+    return 0;
+}
+
+
+/* =====================================================
+   LẤY SỐ NGƯỜI THÁNG TRƯỚC
+===================================================== */
+
+function getPreviousPeople(room,month){
+
+    month=Number(month);
+
+    if(month<=1)
+        return 0;
+
+    const previous=
+        rec(room,month-1);
+
+    if(
+        previous &&
+        isEntered(previous)
+    ){
+
+        return Number(previous.people)||0;
+
+    }
+
+    return 0;
+}
+
+
+/* =====================================================
+   ĐỒNG BỘ TOÀN BỘ THÁNG
+===================================================== */
+
+function syncAllRoom(room){
+
+    for(let m=2;m<=12;m++){
+
+        const current=
+            rec(room,m);
+
+        if(!current)
+            continue;
+
+        const previous=
+            rec(room,m-1);
+
+        /*
+           Nếu tháng hiện tại chưa nhập:
+           tự lấy người + điện đầu kỳ.
+        */
+
+        if(
+            !current.entered &&
+            previous &&
+            isEntered(previous)
+        ){
+
+            current.people=
+                Number(previous.people)||0;
+
+            current.before=
+                Number(previous.after)||0;
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   ĐỒNG BỘ CÁC THÁNG SAU
+===================================================== */
+
+function syncFollowing(room,month){
+
+    month=Number(month);
+
+    for(let m=month+1;m<=12;m++){
+
+        const previous=
+            rec(room,m-1);
+
+        const current=
+            rec(room,m);
+
+        if(!current)
+            continue;
+
+
+        /*
+           CHỈ TỰ ĐỘNG LẤY
+           NẾU THÁNG SAU CHƯA NHẬP.
+
+           Khi tháng sau đã nhập,
+           không tự ghi đè số người.
+        */
+
+        if(
+            !current.entered &&
+            previous &&
+            isEntered(previous)
+        ){
+
+            current.people=
+                Number(previous.people)||0;
+
+            current.before=
+                Number(previous.after)||0;
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   TÍNH TIỀN
+===================================================== */
+
+function calc(r){
+
+    const before=
+        Number(r.before)||0;
+
+    const after=
+        Number(r.after)||0;
+
+    const units=
+        Math.max(
+            0,
+            after-before
+        );
+
+
+    const ep=
+        Number(
+            db.settings.electricPrice||4000
+        );
+
+
+    const wp=
+        Number(
+            db.settings.waterPricePerPerson||50000
+        );
+
+
+    const elec=
+        units*ep;
+
+    const water=
+        (Number(r.people)||0)*wp;
+
+
+    return{
+
+        units,
+
+        elec,
+
+        water,
+
+        total:
+            elec+
+            water+
+            (Number(r.rent)||0),
+
+        ep,
+        wp
+
+    };
+
+}
+
+
+/* =====================================================
+   SELECT THÁNG
+===================================================== */
+
+function months(id,selected){
+
+    const e=
+        document.getElementById(id);
+
+    e.innerHTML="";
+
+
+    for(let i=1;i<=12;i++){
+
+        e.innerHTML+=`
+
+        <option
+            value="${i}"
+            ${i==selected?"selected":""}
+        >
+            Tháng ${i}
+        </option>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECT PHÒNG
+===================================================== */
+
+function roomSelect(){
+
+    const e=
+        document.getElementById("br");
+
+    const old=
+        e.value;
+
+
+    e.innerHTML=
+        `<option value="">
+            Tất cả phòng
+        </option>`+
+        db.rooms.map(
+            r=>
+            `<option value="${esc(r.name)}">
+                ${esc(r.name)}
+            </option>`
+        ).join("");
+
+
+    e.value=old;
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function renderDash(){
+
+    const m=
+        Number(dm.value);
+
+
+    const list=
+        db.records.filter(
+            r=>+r.month===m
+        );
+
+
+    const t={
+        e:0,
+        w:0,
+        r:0,
+        total:0
+    };
+
+
+    list.forEach(r=>{
+
+        if(!isEntered(r))
+            return;
+
+        const c=
+            calc(r);
+
+        t.e+=c.elec;
+        t.w+=c.water;
+        t.r+=Number(r.rent)||0;
+        t.total+=c.total;
+
+    });
+
+
+    stats.innerHTML=[
+
+        ["🏠","Phòng",db.rooms.length],
+
+        ["⚡","Điện",money(t.e)],
+
+        ["💧","Nước",money(t.w)],
+
+        ["💰","Tổng",money(t.total)]
+
+    ].map(
+        x=>
+        `<div class="card stat">
+
+            <div class="label">
+                ${x[0]} ${x[1]}
+            </div>
+
+            <div class="value">
+                ${x[2]}
+            </div>
+
+        </div>`
+    ).join("");
+
+
+    dt.innerHTML=
+        db.rooms.map(room=>{
+
+            const r=
+                rec(room.name,m);
+
+
+            if(
+                !r ||
+                !isEntered(r)
+            ){
+
+                return`
+
+                <tr>
+
+                    <td>
+                        <b>
+                            ${esc(room.name)}
+                        </b>
+                    </td>
+
+                    <td colspan="5"
+                        class="muted">
+                        Chưa nhập
+                    </td>
+
+                    <td>
+
+                        <span class="status not-entered">
+                            Chưa nhập
+                        </span>
+
+                        <button
+                            class="btn"
+                            onclick="openBill('${esc(room.name)}',${m})"
+                        >
+                            Nhập
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+
+
+            const c=
+                calc(r);
+
+
+            return`
+
+            <tr>
+
+                <td>
+                    <b>${esc(r.room)}</b>
+                </td>
+
+                <td>
+                    ${r.people}
+                </td>
+
+                <td>
+                    ${money(c.elec)}
+                </td>
+
+                <td>
+                    ${money(c.water)}
+                </td>
+
+                <td>
+                    ${money(r.rent)}
+                </td>
+
+                <td class="money">
+                    ${money(c.total)}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${
+                            r.paid
+                            ?"paid"
+                            :"unpaid"
+                        }"
+                    >
+                        ${
+                            r.paid
+                            ?"Đã thu"
+                            :"Chưa thu"
+                        }
+                    </span>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   BILLING
+===================================================== */
+
+function renderBill(){
+
+    const m=
+        Number(bm.value);
+
+    const q=
+        (bq.value||"")
+        .toLowerCase();
+
+    const room=
+        br.value;
+
+
+    const list=
+        db.rooms
+        .filter(
+            roomObj=>
+            (!room || roomObj.name===room) &&
+            roomObj.name
+                .toLowerCase()
+                .includes(q)
+        )
+        .map(
+            roomObj=>
+            rec(roomObj.name,m)
+        );
+
+
+    bt.innerHTML=
+
+        list.map(r=>{
+
+            const roomName=
+                r?.room||"";
+
+
+            if(
+                !r ||
+                !isEntered(r)
+            ){
+
+                return`
+
+                <tr>
+
+                    <td>${m}</td>
+
+                    <td>
+                        <b>
+                            ${esc(roomName)}
+                        </b>
+                    </td>
+
+                    <td colspan="9">
+
+                        <span
+                            class="status not-entered"
+                        >
+                            Chưa nhập
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn"
+                            onclick="openBill('${esc(roomName)}',${m})"
+                        >
+                            Nhập
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+
+
+            const c=
+                calc(r);
+
+
+            return`
+
+            <tr>
+
+                <td>${m}</td>
+
+                <td>
+                    <b>${esc(r.room)}</b>
+                </td>
+
+                <td>
+                    ${r.people}
+                </td>
+
+                <td>
+                    ${r.before}
+                </td>
+
+                <td>
+                    ${r.after}
+                </td>
+
+                <td>
+                    ${c.units}
+                </td>
+
+                <td>
+                    ${money(c.elec)}
+                </td>
+
+                <td>
+                    ${money(c.water)}
+                </td>
+
+                <td>
+                    ${money(r.rent)}
+                </td>
+
+                <td class="money">
+                    ${money(c.total)}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${
+                            r.paid
+                            ?"paid"
+                            :"unpaid"
+                        }"
+                    >
+                        ${
+                            r.paid
+                            ?"Đã thu"
+                            :"Chưa thu"
+                        }
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn"
+                        onclick="openBill('${esc(r.room)}',${m})"
+                    >
+                        Sửa
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="printInvoice('${esc(r.room)}',${m})"
+                    >
+                        PDF
+                    </button>
+
+                    <button
+                        class="btn"
+                        onclick="delBill('${esc(r.room)}',${m})"
+                    >
+                        Xóa
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+
+
+    if(!list.length){
+
+        bt.innerHTML=`
+
+        <tr>
+
+            <td
+                colspan="12"
+                style="
+                    text-align:center;
+                    padding:30px;
+                    color:#777
+                "
+            >
+                Không có dữ liệu
+            </td>
+
+        </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   ROOMS
+===================================================== */
+
+function renderRooms(){
+
+    rg.innerHTML=
+
+        db.rooms.map(
+            r=>
+            `<div class="room">
+
+                <b>
+                    ${esc(r.name)}
+                </b>
+
+                <p class="muted">
+                    Giá mặc định:
+                    ${money(r.defaultRent)}
+                </p>
+
+                <button
+                    class="btn"
+                    onclick="openRoom('${esc(r.name)}')"
+                >
+                    Sửa
+                </button>
+
+                <button
+                    class="btn danger"
+                    onclick="delRoom('${esc(r.name)}')"
+                >
+                    Xóa
+                </button>
+
+            </div>`
+        ).join("");
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+    const m=
+        new Date().getMonth()+1;
+
+
+    months("dm",m);
+    months("bm",m);
+
+    roomSelect();
+
+
+    ep.value=
+        db.settings.electricPrice||4000;
+
+    wp.value=
+        db.settings.waterPricePerPerson||50000;
+
+
+    renderDash();
+    renderBill();
+    renderRooms();
+
+}
+
+
+/* =====================================================
+   NHẬP / SỬA HÓA ĐƠN
+===================================================== */
+
+function openBill(room="",month=""){
+
+    const m=
+        Number(month||bm.value||1);
+
+
+    const selectedRoom=
+        room ||
+        db.rooms[0]?.name ||
+        "";
+
+
+    const existing=
+        rec(selectedRoom,m);
+
+
+    const roomObj=
+        db.rooms.find(
+            x=>x.name===selectedRoom
+        );
+
+
+    const r=
+        existing ||
+        {
+
+            month:m,
+            room:selectedRoom,
+
+            people:0,
+
+            before:0,
+            after:0,
+
+            electric:0,
+            water:0,
+
+            rent:
+                roomObj
+                ?roomObj.defaultRent
+                :0,
+
+            paid:false,
+
+            entered:false
+
+        };
+
+
+    /*
+       Nếu tháng hiện tại chưa nhập:
+       tự lấy số người + điện từ tháng trước.
+    */
+
+    let autoPeople=
+        r.people;
+
+
+    let autoBefore=
+        r.before;
+
+
+    if(!existing || !isEntered(existing)){
+
+        if(m>1){
+
+            autoPeople=
+                getPreviousPeople(
+                    selectedRoom,
+                    m
+                );
+
+            autoBefore=
+                getPreviousAfter(
+                    selectedRoom,
+                    m
+                );
+
+        }
+
+    }
+
+
+    box.innerHTML=`
+
+    <h3>
+        ${existing && isEntered(existing)
+            ?"Sửa"
+            :"Nhập"
+        }
+        hóa đơn
+    </h3>
+
+
+    <div class="form">
+
+
+        <div class="field">
+
+            <label>
+                Tháng
+            </label>
+
+            <select id="fm">
+
+                ${
+                    Array.from(
+                        {length:12},
+                        (_,i)=>
+                        `<option
+                            value="${i+1}"
+                            ${i+1===m?"selected":""}
+                        >
+                            Tháng ${i+1}
+                        </option>`
+                    ).join("")
+                }
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Phòng
+            </label>
+
+            <select id="fr">
+
+                ${
+                    db.rooms.map(
+                        x=>
+                        `<option
+                            value="${esc(x.name)}"
+                            ${
+                                x.name===selectedRoom
+                                ?"selected"
+                                :""
+                            }
+                        >
+                            ${esc(x.name)}
+                        </option>`
+                    ).join("")
+                }
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Số người
+            </label>
+
+            <input
+                id="fpeople"
+                type="number"
+                min="0"
+                value="${autoPeople||0}"
+            >
+
+            <small class="muted">
+                Tự lấy từ tháng trước, có thể sửa
+            </small>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Tiền phòng
+            </label>
+
+            <input
+                id="frent"
+                type="number"
+                min="0"
+                value="${r.rent||0}"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Điện đầu kỳ
+            </label>
+
+            <input
+                id="fbefore"
+                type="number"
+                min="0"
+                value="${autoBefore||0}"
+            >
+
+            <small class="muted">
+                Tự lấy từ điện cuối kỳ tháng trước,
+                có thể sửa
+            </small>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Điện cuối kỳ
+            </label>
+
+            <input
+                id="fafter"
+                type="number"
+                min="0"
+                value="${r.after||0}"
+            >
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+                Tiền nước tự động
+            </label>
+
+            <input
+                id="fwater"
+                disabled
+                value="${money(
+                    (autoPeople||0)*
+                    (
+                        db.settings.waterPricePerPerson
+                        ||50000
+                    )
+                )}"
+            >
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+
+                <input
+                    id="fpaid"
+                    type="checkbox"
+                    ${r.paid?"checked":""}
+                >
+
+                Đã thu tiền
+
+            </label>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="modalactions">
+
+        <button
+            class="btn"
+            onclick="closeModal()"
+        >
+            Hủy
+        </button>
+
+        <button
+            class="btn primary"
+            onclick="saveBill()"
+        >
+            Lưu
+        </button>
+
+    </div>
+
+    `;
+
+
+    modal.classList.add("show");
+
+
+    /*
+       Cập nhật tiền nước
+    */
+
+    fpeople.oninput=()=>{
+
+        fwater.value=
+            money(
+                Number(fpeople.value||0)*
+                (
+                    db.settings.waterPricePerPerson
+                    ||50000
+                )
+            );
+
+    };
+
+
+    /*
+       Đổi phòng
+    */
+
+    fr.onchange=()=>{
+
+        const newRoom=
+            fr.value;
+
+
+        const previous=
+            getPreviousAfter(
+                newRoom,
+                Number(fm.value)
+            );
+
+
+        const previousPeople=
+            getPreviousPeople(
+                newRoom,
+                Number(fm.value)
+            );
+
+
+        fbefore.value=
+            previous;
+
+
+        fpeople.value=
+            previousPeople;
+
+
+        fwater.value=
+            money(
+                previousPeople*
+                (
+                    db.settings.waterPricePerPerson
+                    ||50000
+                )
+            );
+
+
+        const obj=
+            db.rooms.find(
+                x=>x.name===newRoom
+            );
+
+
+        if(!existing){
+
+            frent.value=
+                obj
+                ?obj.defaultRent
+                :0;
+
+        }
+
+    };
+
+
+    /*
+       Đổi tháng
+    */
+
+    fm.onchange=()=>{
+
+        const newMonth=
+            Number(fm.value);
+
+        const newRoom=
+            fr.value;
+
+
+        const current=
+            rec(
+                newRoom,
+                newMonth
+            );
+
+
+        /*
+           Nếu tháng đã có dữ liệu:
+           dùng dữ liệu của tháng đó.
+        */
+
+        if(
+            current &&
+            isEntered(current)
+        ){
+
+            fpeople.value=
+                current.people||0;
+
+            fbefore.value=
+                current.before||0;
+
+            fafter.value=
+                current.after||0;
+
+            frent.value=
+                current.rent||0;
+
+            fpaid.checked=
+                !!current.paid;
+
+        }
+
+        /*
+           Nếu chưa nhập:
+           lấy từ tháng trước.
+        */
+
+        else{
+
+            const people=
+                getPreviousPeople(
+                    newRoom,
+                    newMonth
+                );
+
+            const before=
+                getPreviousAfter(
+                    newRoom,
+                    newMonth
+                );
+
+
+            fpeople.value=
+                people;
+
+            fbefore.value=
+                before;
+
+
+            const obj=
+                db.rooms.find(
+                    x=>x.name===newRoom
+                );
+
+
+            frent.value=
+                obj
+                ?obj.defaultRent
+                :0;
+
+            fafter.value=0;
+
+            fpaid.checked=false;
+
+        }
+
+
+        fwater.value=
+            money(
+                Number(fpeople.value||0)*
+                (
+                    db.settings.waterPricePerPerson
+                    ||50000
+                )
+            );
+
+    };
+
+}
+
+
+/* =====================================================
+   LƯU HÓA ĐƠN
+===================================================== */
+
+function saveBill(){
+
+    const m=
+        Number(fm.value);
+
+    const room=
+        fr.value;
+
+    const people=
+        Number(fpeople.value)||0;
+
+    const rent=
+        Number(frent.value)||0;
+
+    const after=
+        Number(fafter.value)||0;
+
+
+    /*
+       Đầu kỳ tự động từ tháng trước,
+       NHƯNG cho phép người dùng sửa.
+
+       Vì vậy lấy giá trị người dùng
+       đang nhìn thấy trong fbefore.
+    */
+
+    const before=
+        Number(fbefore.value)||0;
+
+
+    const r={
+
+        month:m,
+
+        room,
+
+        people,
+
+        before,
+
+        after,
+
+        rent,
+
+        electric:0,
+        water:0,
+
+        paid:
+            fpaid.checked,
+
+        entered:true
+
+    };
+
+
+    const index=
+        db.records.findIndex(
+            x=>
+            x.room===room &&
+            +x.month===m
+        );
+
+
+    if(index>=0){
+
+        db.records[index]=r;
+
+    }else{
+
+        db.records.push(r);
+
+    }
+
+
+    /*
+       Sau khi nhập tháng này:
+       tháng sau sẽ tự lấy số người
+       và điện cuối kỳ.
+
+       Nhưng nếu tháng sau đã nhập
+       thì không ghi đè.
+    */
+
+    syncFollowing(
+        room,
+        m
+    );
+
+
+    save();
+
+    closeModal();
+
+    render();
+
+    toast(
+        "Đã lưu. Tháng sau sẽ tự lấy số người và điện."
+    );
+
+}
+
+
+/* =====================================================
+   XÓA HÓA ĐƠN
+===================================================== */
+
+function delBill(room,m){
+
+    if(
+        !confirm(
+            "Xóa hóa đơn?"
+        )
+    )
+        return;
+
+
+    db.records=
+        db.records.filter(
+            x=>
+            !(
+                x.room===room &&
+                +x.month===+m
+            )
+        );
+
+
+    /*
+       Tạo lại record tháng vừa xóa
+       để phòng vẫn xuất hiện.
+    */
+
+    const roomObj=
+        db.rooms.find(
+            x=>x.name===room
+        );
+
+
+    if(roomObj){
+
+        db.records.push({
+
+            month:Number(m),
+
+            room,
+
+            people:0,
+
+            before:
+                m>1
+                ?getPreviousAfter(room,m)
+                :0,
+
+            after:0,
+
+            electric:0,
+            water:0,
+
+            rent:
+                roomObj.defaultRent,
+
+            paid:false,
+
+            entered:false
+
+        });
+
+    }
+
+
+    /*
+       Đồng bộ các tháng sau.
+    */
+
+    syncFollowing(
+        room,
+        Number(m)-1
+    );
+
+
+    save();
+
+    render();
+
+    toast("Đã xóa hóa đơn");
+
+}
+
+
+/* =====================================================
+   THÊM / SỬA PHÒNG
+===================================================== */
+
+function openRoom(name=""){
+
+    const r=
+        db.rooms.find(
+            x=>x.name===name
+        ) ||
+        {
+            name:"",
+            defaultRent:0
+        };
+
+
+    box.innerHTML=`
+
+    <h3>
+        ${name?"Sửa":"Thêm"} phòng
+    </h3>
+
+
+    <div class="form">
+
+        <div class="field full">
+
+            <label>
+                Tên phòng
+            </label>
+
+            <input
+                id="rn"
+                value="${esc(r.name)}"
+            >
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+                Giá phòng mặc định
+            </label>
+
+            <input
+                id="rr"
+                type="number"
+                value="${r.defaultRent||0}"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="modalactions">
+
+        <button
+            class="btn"
+            onclick="closeModal()"
+        >
+            Hủy
+        </button>
+
+        <button
+            class="btn primary"
+            onclick="saveRoom('${esc(name)}')"
+        >
+            Lưu
+        </button>
+
+    </div>
+
+    `;
+
+
+    modal.classList.add("show");
+
+}
+
+
+/* =====================================================
+   LƯU PHÒNG
+===================================================== */
+
+function saveRoom(old){
+
+    const name=
+        rn.value.trim();
+
+    const rent=
+        Number(rr.value)||0;
+
+
+    if(!name){
+
+        alert("Nhập tên phòng");
+
+        return;
+
+    }
+
+
+    /*
+       SỬA
+    */
+
+    if(old){
+
+        const r=
+            db.rooms.find(
+                x=>x.name===old
+            );
+
+
+        if(
+            name!==old &&
+            db.rooms.some(
+                x=>x.name===name
+            )
+        ){
+
+            alert(
+                "Tên phòng đã tồn tại"
+            );
+
+            return;
+
+        }
+
+
+        r.name=name;
+        r.defaultRent=rent;
+
+
+        db.records.forEach(x=>{
+
+            if(x.room===old){
+
+                x.room=name;
+
+            }
+
+        });
+
+
+        /*
+           Nếu đổi tên phòng,
+           giữ toàn bộ dữ liệu cũ.
+        */
+
+        syncAllRoom(name);
+
+    }
+
+    /*
+       THÊM
+    */
+
+    else{
+
+        if(
+            db.rooms.some(
+                x=>x.name===name
+            )
+        ){
+
+            alert(
+                "Phòng đã tồn tại"
+            );
+
+            return;
+
+        }
+
+
+        db.rooms.push({
+
+            name,
+
+            defaultRent:rent
+
+        });
+
+
+        /*
+           Tạo đủ 12 tháng.
+
+           Các tháng đều tồn tại
+           nhưng chưa nhập.
+        */
+
+        for(let m=1;m<=12;m++){
+
+            db.records.push({
+
+                month:m,
+
+                room:name,
+
+                people:0,
+
+                before:0,
+
+                after:0,
+
+                electric:0,
+
+                water:0,
+
+                rent:rent,
+
+                paid:false,
+
+                entered:false
+
+            });
+
+        }
+
+    }
+
+
+    save();
+
+    closeModal();
+
+    render();
+
+    toast(
+        old
+        ?"Đã cập nhật phòng"
+        :"Đã thêm phòng — đủ 12 tháng"
+    );
+
+}
+
+
+/* =====================================================
+   XÓA PHÒNG
+===================================================== */
+
+function delRoom(name){
+
+    if(
+        !confirm(
+            "Xóa phòng và toàn bộ hóa đơn?"
+        )
+    )
+        return;
+
+
+    db.rooms=
+        db.rooms.filter(
+            x=>x.name!==name
+        );
+
+
+    db.records=
+        db.records.filter(
+            x=>x.room!==name
+        );
+
+
+    save();
+
+    render();
+
+    toast("Đã xóa phòng");
+
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function saveSettings(){
+
+    db.settings.electricPrice=
+        Number(ep.value)||4000;
+
+    db.settings.waterPricePerPerson=
+        Number(wp.value)||50000;
+
+
+    save();
+
+    render();
+
+    toast("Đã lưu đơn giá");
+
+}
+
+/* =====================================================
+   KIỂM TRA LOCALSTORAGE
+===================================================== */
+
+function checkStorage(){
+
+    const saved =
+        localStorage.getItem(KEY);
+
+    if(!saved){
+
+        alert(
+            "❌ Không tìm thấy dữ liệu trong LocalStorage"
+        );
+
+        return;
+
+    }
+
+    try{
+
+        const data =
+            JSON.parse(saved);
+
+        alert(
+            "✅ LocalStorage đang hoạt động!\n\n" +
+            "Key: " + KEY + "\n" +
+            "Số phòng: " + data.rooms.length + "\n" +
+            "Số bản ghi: " + data.records.length
+        );
+
+        console.log(
+            "Dữ liệu đang lưu:",
+            data
+        );
+
+    }catch(error){
+
+        alert(
+            "❌ Dữ liệu LocalStorage bị lỗi"
+        );
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   XÓA LOCALSTORAGE
+===================================================== */
+
+function clearStorage(){
+
+    if(
+        !confirm(
+            "Xóa toàn bộ dữ liệu đã lưu?"
+        )
+    ){
+
+        return;
+
+    }
+
+    localStorage.removeItem(KEY);
+
+    location.reload();
+
+}
+
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetData(){
+
+    if(
+        !confirm(
+            "Khôi phục dữ liệu ban đầu?"
+        )
+    )
+        return;
+
+
+    db=
+        structuredClone(SEED);
+
+
+    save();
+
+    render();
+
+    toast(
+        "Đã khôi phục dữ liệu"
+    );
+
+}
+
+
+/* =====================================================
+   IN PDF
+===================================================== */
+
+function printInvoice(room,m){
+
+    const r=
+        rec(room,m);
+
+
+    if(
+        !r ||
+        !isEntered(r)
+    ){
+
+        alert(
+            "Chưa có dữ liệu"
+        );
+
+        return;
+
+    }
+
+
+    const c=
+        calc(r);
+
+
+    invoicePrint.innerHTML=`
+
+        <h2>
+            HÓA ĐƠN TIỀN PHÒNG
+        </h2>
+
+
+        <div class="invoice-meta">
+
+            <div>
+                <b>Phòng:</b>
+                ${esc(room)}
+            </div>
+
+            <div>
+                <b>Tháng:</b>
+                ${m}/2026
+            </div>
+
+            <div>
+                <b>Số người:</b>
+                ${r.people}
+            </div>
+
+            <div>
+                <b>Trạng thái:</b>
+                ${
+                    r.paid
+                    ?"Đã thanh toán"
+                    :"Chưa thanh toán"
+                }
+            </div>
+
+        </div>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Khoản thu
+                    </th>
+
+                    <th>
+                        Cách tính
+                    </th>
+
+                    <th>
+                        Thành tiền
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        Tiền phòng
+                    </td>
+
+                    <td>
+                       Chi phí cố định của: ${esc(room)}
+                    </td>
+
+                    <td>
+                        ${money(r.rent)}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Tiền điện
+                    </td>
+
+                    <td>
+                        ${r.before}
+                        →
+                        ${r.after}
+                        =
+                        ${c.units}
+                        kWh ×
+                        ${money(c.ep)}
+                    </td>
+
+                    <td>
+                        ${money(c.elec)}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Tiền nước/Wifi (VND/người/tháng)
+                    </td>
+
+                    <td>
+                        ${r.people}
+                        người ×
+                        ${money(c.wp)}
+                    </td>
+
+                    <td>
+                        ${money(c.water)}
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <div class="total">
+
+            TỔNG CỘNG:
+            ${money(c.total)}
+
+        </div>
+
+
+        <p style="margin-top:28px">
+            Cảm ơn quý khách!
+        </p>
+
+    `;
+
+
+    /*
+       Chỉ hiển thị invoice khi in.
+       Sau khi in xong xóa nội dung.
+    */
+
+    setTimeout(()=>{
+
+        window.print();
+
+    },50);
+
+}
+
+
+/* =====================================================
+   SAU KHI PRINT
+===================================================== */
+
+window.onafterprint=()=>{
+
+    invoicePrint.innerHTML="";
+
+};
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function closeModal(){
+
+    modal.classList.remove("show");
+
+}
+
+
+modal.onclick=e=>{
+
+    if(e.target===modal)
+        closeModal();
+
+};
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function toast(message){
+
+    const el=
+        document.getElementById(
+            "toast"
+        );
+
+
+    el.textContent=message;
+
+    el.style.display="block";
+
+
+    setTimeout(
+        ()=>{
+            el.style.display="none";
+        },
+        2200
+    );
+
+}
+
+
+/* =====================================================
+   EXPORT
+===================================================== */
+
+function exportData(){
+
+    const blob=
+        new Blob(
+            [
+                JSON.stringify(
+                    db,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                "application/json"
+            }
+        );
+
+
+    const a=
+        document.createElement("a");
+
+
+    a.href=
+        URL.createObjectURL(blob);
+
+
+    a.download=
+        "quan-ly-tro-2026-backup.json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(
+        a.href
+    );
+
+}
+
+
+/* =====================================================
+   IMPORT
+===================================================== */
+
+function importData(e){
+
+    const f=
+        e.target.files[0];
+
+
+    if(!f)
+        return;
+
+
+    const rd=
+        new FileReader();
+
+
+    rd.onload=()=>{
+
+        try{
+
+            const x=
+                JSON.parse(
+                    rd.result
+                );
+
+
+            if(
+                !x.rooms ||
+                !x.records
+            )
+                throw new Error();
+
+
+            db=
+                normalizeDB(x);
+
+
+            save();
+
+            render();
+
+            toast(
+                "Đã nhập backup"
+            );
+
+        }catch(err){
+
+            alert(
+                "JSON không hợp lệ"
+            );
+
+        }
+
+    };
+
+
+    rd.readAsText(f);
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+document
+.querySelectorAll(".nav button")
+.forEach(button=>{
+
+    button.onclick=()=>{
+
+        document
+        .querySelectorAll(".nav button")
+        .forEach(
+            x=>
+            x.classList.remove("active")
+        );
+
+
+        button.classList.add("active");
+
+
+        document
+        .querySelectorAll(".view")
+        .forEach(
+            x=>
+            x.classList.remove("active")
+        );
+
+
+        document
+        .getElementById(
+            button.dataset.view
+        )
+        .classList.add("active");
+
+
+        title.textContent=
+            button.textContent
+            .replace(
+                /^\S+\s/,
+                ""
+            );
+
+    };
+
+});
+
+
+/* =====================================================
+   START
+===================================================== */
+
+render();
+
+</script>
+
+</body>
+</html>
